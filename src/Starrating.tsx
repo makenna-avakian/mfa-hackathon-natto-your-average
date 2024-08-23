@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+//can't use :(
 interface StarRatingProps {
   rating: number;
   onRatingChange: (rating: number) => void;
