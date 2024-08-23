@@ -31,7 +31,7 @@ export const Modal: React.FC<ModalProps> = ({ onClose }) => {
     number | null
   >(null);
   const [rating, setRating] = useState(0);
-  const [showRating, setShowRating] = useState(false);
+  const [showRating] = useState(false);
 
 
   useEffect(() => {
@@ -47,18 +47,18 @@ export const Modal: React.FC<ModalProps> = ({ onClose }) => {
         setCurrentQuestionIndex(Math.floor(Math.random() * questions.length));
       } else {
         setCurrentQuestionIndex(null);
-        setShowRating(true);
       }
     }
   };
 
-  const handleRatingChange = (value: number) => {
-    setRating(value);
-  };
+  // No stars
+  // const handleRatingChange = (value: number) => {
+  //   setRating(value);
+  // };
 
-  if (showRating) {
-    return <StarRating rating={rating} onRatingChange={handleRatingChange} onClose={onClose} />;
-  }
+  // if (showRating) {
+  //   return <StarRating rating={rating} onRatingChange={handleRatingChange} onClose={onClose} />;
+  // }
 
   if (currentQuestionIndex === null) {
     return null;
