@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { StarRating } from './Starrating';
 
 interface Question {
   question: string;
@@ -14,6 +15,10 @@ const questions: Question[] = [
     question: "Do you like Natto?",
     options: ["Yes", "No", "Huh?"],
   },
+  {
+    question: "Favorite Dev?",
+    options: ["Mak", "Wataru", "Brandon", "Tia"],
+  }
 ];
 
 interface ModalProps {
@@ -24,6 +29,9 @@ export const Modal: React.FC<ModalProps> = ({ onClose }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<
     number | null
   >(null);
+  const [rating, setRating] = useState(0);
+  const [showRating, setShowRating] = useState(false);
+
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -38,9 +46,18 @@ export const Modal: React.FC<ModalProps> = ({ onClose }) => {
         setCurrentQuestionIndex(Math.floor(Math.random() * questions.length));
       } else {
         setCurrentQuestionIndex(null);
+        setShowRating(true);
       }
     }
   };
+
+  const handleRatingChange = (value: number) => {
+    setRating(value);
+  };
+
+  if (showRating) {
+    return <StarRating rating={rating} onRatingChange={handleRatingChange} onClose={onClose} />;
+  }
 
   if (currentQuestionIndex === null) {
     return null;
@@ -64,7 +81,7 @@ export const Modal: React.FC<ModalProps> = ({ onClose }) => {
           ))}
         </div>
         <button
-          className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+          className="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 mx-auto"
           onClick={onClose}
         >
           Close
